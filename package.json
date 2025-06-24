@@ -1,0 +1,19 @@
+{
+  "name": "nodejs_examples",
+  "version": "1.0.0",
+  "description": "trying things out",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egamboa/nodejs_examples.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/egamboa/nodejs_examples/issues"
+  },
+  "homepage": "https://github.com/egamboa/nodejs_examples#readme"
+}
