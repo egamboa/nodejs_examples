@@ -1,9 +1,6 @@
-import { Request, Response, NextFunction } from 'express'
+import { Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
-
-export interface AuthRequest extends Request {
-  user?: jwt.JwtPayload
-}
+import { AuthRequest } from '../interfaces/AuthRequest'
 
 export function verifyToken(
   req: AuthRequest,

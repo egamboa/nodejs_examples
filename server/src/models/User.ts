@@ -1,13 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize'
 import { sequelize } from '../config/db'
-
-interface UserAttributes {
-  id: number
-  email: string
-  password_hash: string
-  role: string
-  created_at?: Date
-}
+import UserAttributes from '../interfaces/User'
 
 type UserCreationAttributes = Optional<UserAttributes, 'id' | 'role'>
 
