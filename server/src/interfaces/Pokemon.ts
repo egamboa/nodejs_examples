@@ -11,16 +11,13 @@ export interface PokemonDetails {
   height: number
   weight: number
   base_experience: number
-  abilities: { ability: { name: string; url: string } }[]
-  types: { type: { name: string; url: string } }[]
+  abilities: Array<{ ability: { name: string; url: string } }>
+  types: Array<{ type: { name: string; url: string } }>
   sprites: {
     front_default: string
     back_default: string
     other?: {
-      'official-artwork'?: {
-        front_default?: string
-        back_default?: string
-      }
+      'official-artwork'?: { front_default?: string; back_default?: string }
     }
   }
 }

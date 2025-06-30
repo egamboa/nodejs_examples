@@ -4,7 +4,7 @@ import { loginUser, registerUser } from '../services/auth.service'
 
 export async function register(req: Request, res: Response) {
   const { email, password } = req.body
-  registerUser(email, password)
+  await registerUser(email, password)
     .then((user) => {
       res.status(201).json({ id: user.id, email: user.email })
     })
@@ -17,7 +17,7 @@ export async function register(req: Request, res: Response) {
 
 export async function login(req: Request, res: Response) {
   const { email, password } = req.body
-  loginUser(email, password)
+  await loginUser(email, password)
     .then((user) => {
       res.json({ token: user.token })
     })

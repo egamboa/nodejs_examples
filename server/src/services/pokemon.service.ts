@@ -21,59 +21,35 @@ function isAxiosError(error: unknown): error is {
     (error as Record<string, unknown>).isAxiosError === true
   )
 }
+
 export async function list(limit: number, offset: number) {
   try {
     const listCacheKey = `pokemon:list:limit=${limit}:offset=${offset}`
 
-    // Check if full list is already cached
     const cachedList = await redis.get(listCacheKey)
     if (cachedList) {
       return JSON.parse(cachedList)
     }
 
-    // Fetch list of Pokémon names + URLs
     const { data } = await axios.get<PokemonList>(
       `${POKE_API_URL}?limit=${limit}&offset=${offset}`,
     )
 
     const results = data.results as { name: string; url: string }[]
 
-    // For each result, check Redis cache or fetch and cache details
     const fullDetails = await Promise.all(
       results.map(async ({ name, url }) => {
         const cacheKey = `pokemon:${name}`
-
         const cachedPokemon = await redis.get(cacheKey)
-        if (cachedPokemon) return cachedPokemon
+
+        if (cachedPokemon) return JSON.parse(cachedPokemon)
 
         const { data: pokemonData } = await axios.get<PokemonDetails>(url)
-        const {
-          id,
-          name: cleanName,
-          height,
-          weight,
-          base_experience,
-          abilities,
-          types,
-          sprites,
-        } = pokemonData
-
-        const cleanedData: PokemonDetails = {
-          id,
-          name: cleanName,
-          height,
-          weight,
-          base_experience,
-          abilities,
-          types,
-          sprites,
-        }
-        await redis.set(cacheKey, JSON.stringify(cleanedData), 'EX', CACHE_TTL)
-        return cleanedData
+        await redis.set(cacheKey, JSON.stringify(pokemonData), 'EX', CACHE_TTL)
+        return pokemonData
       }),
     )
 
-    // Cache the full hydrated list for future use
     await redis.set(listCacheKey, JSON.stringify(fullDetails), 'EX', CACHE_TTL)
     return fullDetails
   } catch (error) {
@@ -94,41 +70,17 @@ export async function findOne(name: string) {
   const cacheKey = `pokemon:${name}`
 
   try {
-    // Check Redis cache
     const cached = await redis.get(cacheKey)
 
     if (cached) {
       return JSON.parse(cached) as PokemonDetails
     }
-    // Fetch from PokéAPI
+
     const { data } = await axios.get<PokemonDetails>(`${POKE_API_URL}/${name}`)
 
-    const {
-      id,
-      name: cleanName,
-      height,
-      weight,
-      base_experience,
-      abilities,
-      types,
-      sprites,
-    } = data
+    await redis.set(cacheKey, JSON.stringify(data), 'EX', CACHE_TTL)
 
-    const cleanedData: PokemonDetails = {
-      id,
-      name: cleanName,
-      height,
-      weight,
-      base_experience,
-      abilities,
-      types,
-      sprites,
-    }
-
-    // Cache result
-    await redis.set(cacheKey, JSON.stringify(cleanedData), 'EX', CACHE_TTL)
-
-    return cleanedData
+    return data
   } catch (error) {
     console.error(error)
     if (isAxiosError(error)) {
