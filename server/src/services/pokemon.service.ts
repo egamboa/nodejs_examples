@@ -10,18 +10,6 @@ const genericErrorMessage = {
   message: 'Server error, please try again later',
 }
 
-function isAxiosError(error: unknown): error is {
-  isAxiosError: boolean
-  response?: { status?: number; statusText?: string }
-} {
-  return (
-    typeof error === 'object' &&
-    error !== null &&
-    'isAxiosError' in error &&
-    (error as Record<string, unknown>).isAxiosError === true
-  )
-}
-
 export async function list(limit: number, offset: number) {
   try {
     const listCacheKey = `pokemon:list:limit=${limit}:offset=${offset}`
@@ -52,17 +40,8 @@ export async function list(limit: number, offset: number) {
 
     await redis.set(listCacheKey, JSON.stringify(fullDetails), 'EX', CACHE_TTL)
     return fullDetails
-  } catch (error) {
-    console.error(error)
-    if (isAxiosError(error)) {
-      Promise.reject({
-        status: error.response?.status || 500,
-        message: error.response?.statusText || 'Error fetching Pokémon data',
-      })
-    }
-
-    Promise.reject(genericErrorMessage)
-    return
+  } catch {
+    return Promise.reject(genericErrorMessage)
   }
 }
 
@@ -81,16 +60,7 @@ export async function findOne(name: string) {
     await redis.set(cacheKey, JSON.stringify(data), 'EX', CACHE_TTL)
 
     return data
-  } catch (error) {
-    console.error(error)
-    if (isAxiosError(error)) {
-      Promise.reject({
-        status: error.response?.status || 500,
-        message: error.response?.statusText || 'Error fetching Pokémon data',
-      })
-    }
-
-    Promise.reject(genericErrorMessage)
-    return
+  } catch {
+    return Promise.reject(genericErrorMessage)
   }
 }

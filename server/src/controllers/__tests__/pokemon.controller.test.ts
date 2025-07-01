@@ -52,6 +52,22 @@ describe('Pokemon Controller', () => {
       expect(res.status).toHaveBeenCalledWith(500)
       expect(res.json).toHaveBeenCalledWith({ error: 'Internal error' })
     })
+
+    it('should handle generic errors', async () => {
+      const error = {}
+      ;(PokemonService.list as jest.Mock).mockRejectedValue(error)
+
+      const req = {
+        query: {},
+      } as unknown as Request
+
+      const res = mockResponse()
+
+      await getAllPokemons(req, res)
+
+      expect(res.status).toHaveBeenCalledWith(500)
+      expect(res.json).toHaveBeenCalledWith({ error: 'Internal error' })
+    })
   })
 
   describe('getPokemon', () => {
@@ -89,6 +105,24 @@ describe('Pokemon Controller', () => {
 
     it('should handle errors in getPokemon', async () => {
       const error = { status: 500, message: 'Failed to fetch Pokemon data' }
+      ;(PokemonService.findOne as jest.Mock).mockRejectedValue(error)
+
+      const req = {
+        params: { name: 'pikachu' },
+      } as unknown as Request
+
+      const res = mockResponse()
+
+      await getPokemon(req, res)
+
+      expect(res.status).toHaveBeenCalledWith(500)
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'Failed to fetch Pokemon data',
+      })
+    })
+
+    it('should handle generic errors in getPokemon', async () => {
+      const error = {}
       ;(PokemonService.findOne as jest.Mock).mockRejectedValue(error)
 
       const req = {

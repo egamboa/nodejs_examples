@@ -26,8 +26,7 @@ export async function registerUser(
     }
     const password_hash = await bcrypt.hash(password, SALT_ROUNDS)
     return await User.create({ email, password_hash })
-  } catch (error) {
-    console.error('Registration error:', error)
+  } catch {
     return Promise.reject(genericErrorMessage)
   }
 }
@@ -51,8 +50,7 @@ export async function loginUser(
       { expiresIn: '1d' },
     )
     return { user, token }
-  } catch (error) {
-    console.error('Login error:', error)
+  } catch {
     return Promise.reject(genericErrorMessage)
   }
 }
