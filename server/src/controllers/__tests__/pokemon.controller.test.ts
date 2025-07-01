@@ -66,7 +66,9 @@ describe('Pokemon Controller', () => {
       await getAllPokemons(req, res)
 
       expect(res.status).toHaveBeenCalledWith(500)
-      expect(res.json).toHaveBeenCalledWith({ error: 'Internal error' })
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'Failed to fetch pokemons',
+      })
     })
   })
 
