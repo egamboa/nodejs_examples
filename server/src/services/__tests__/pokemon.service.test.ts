@@ -3,14 +3,6 @@ import { redis } from '../../config/redis'
 import * as PokemonService from '../pokemon.service'
 import { PokemonDetails, PokemonList } from '../../interfaces/Pokemon'
 
-jest.mock('axios')
-jest.mock('../../config/redis', () => ({
-  redis: {
-    get: jest.fn(),
-    set: jest.fn(),
-  },
-}))
-
 const mockedAxios = axios as jest.Mocked<typeof axios>
 const mockedRedis = redis as jest.Mocked<typeof redis>
 

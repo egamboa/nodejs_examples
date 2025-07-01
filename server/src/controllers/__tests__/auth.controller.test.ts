@@ -65,6 +65,64 @@ describe('Auth Controller', () => {
       expect(res.status).toHaveBeenCalledWith(400)
       expect(res.json).toHaveBeenCalledWith({ error: 'Email already used' })
     })
+
+    it('should handle generic errors', async () => {
+      const error = new Error(
+        'Server error, please try again later',
+      ) as Error & {
+        status?: number
+      }
+      error.status = 500
+      ;(AuthService.registerUser as jest.Mock).mockRejectedValue(error)
+
+      const req = {
+        body: {
+          email: 'test@example.com',
+          password: 'password123',
+        },
+      } as Request
+      const res = mockResponse()
+      await register(req, res)
+      expect(res.status).toHaveBeenCalledWith(500)
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'Server error, please try again later',
+      })
+    })
+
+    it('should handle missing email/password', async () => {
+      const req = {
+        body: {},
+      } as Request
+
+      const res = mockResponse()
+
+      await register(req, res)
+
+      expect(res.status).toHaveBeenCalledWith(400)
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'Email and password are required',
+      })
+    })
+
+    it('should handle service generic errors', async () => {
+      const error = new Error()
+      ;(AuthService.registerUser as jest.Mock).mockRejectedValue(error)
+
+      const req = {
+        body: {
+          email: 'test@example.com',
+          password: 'password123',
+        },
+      } as Request
+      const res = mockResponse()
+
+      await register(req, res)
+
+      expect(res.status).toHaveBeenCalledWith(500)
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'Failed to register user',
+      })
+    })
   })
 
   describe('login', () => {
@@ -110,6 +168,20 @@ describe('Auth Controller', () => {
 
       expect(res.status).toHaveBeenCalledWith(401)
       expect(res.json).toHaveBeenCalledWith({ error: 'Invalid credentials' })
+    })
+    it('should handle missing email/password', async () => {
+      const req = {
+        body: {},
+      } as Request
+
+      const res = mockResponse()
+
+      await login(req, res)
+
+      expect(res.status).toHaveBeenCalledWith(400)
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'Email and password are required',
+      })
     })
   })
 

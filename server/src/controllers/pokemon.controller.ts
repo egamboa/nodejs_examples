@@ -8,6 +8,8 @@ import {
   transformOne as pokemonsTransformOne,
 } from '../transformers/pokemon.transformer'
 
+import { handleError } from '../utils/handleError'
+
 export async function getAllPokemons(req: Request, res: Response) {
   const limit = parseInt(req.query.limit as string) || 20
   const offset = parseInt(req.query.offset as string) || 0
@@ -16,25 +18,22 @@ export async function getAllPokemons(req: Request, res: Response) {
     const pokemons = await listPokemons(limit, offset)
     res.status(200).json(pokemonsTransformCollection(pokemons))
   } catch (err) {
-    const error = err as { status?: number; message?: string }
-    res
-      .status(error.status || 500)
-      .json({ error: error.message || 'Failed to fetch pokemons' })
+    return handleError(res, err, 500, 'Failed to fetch pokemons')
   }
 }
 
 export async function getPokemon(req: Request, res: Response) {
   const name = req.params.name?.toLowerCase()
+  if (!name) {
+    return handleError(res, null, 400, 'Pokemon name is required')
+  }
   try {
     const pokemon = await findOnePokemon(name)
     if (!pokemon) {
-      return res.status(404).json({ error: 'Pokemon not found' })
+      return handleError(res, null, 404, 'Pokemon not found')
     }
     res.status(200).json(pokemonsTransformOne(pokemon))
   } catch (err) {
-    const error = err as { status?: number; message?: string }
-    res
-      .status(error.status || 500)
-      .json({ error: error.message || 'Failed to fetch Pokemon data' })
+    return handleError(res, err, 500, 'Failed to fetch Pokemon data')
   }
 }

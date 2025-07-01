@@ -140,5 +140,52 @@ describe('Pokemon Controller', () => {
         error: 'Failed to fetch Pokemon data',
       })
     })
+
+    it('should handle case insensitivity in pokemon name', async () => {
+      const mockPokemon = { name: 'pikachu' }
+      ;(PokemonService.findOne as jest.Mock).mockResolvedValue(mockPokemon)
+
+      const req = {
+        params: { name: 'Pikachu' },
+      } as unknown as Request
+
+      const res = mockResponse()
+
+      await getPokemon(req, res)
+
+      expect(PokemonService.findOne).toHaveBeenCalledWith('pikachu')
+      expect(res.status).toHaveBeenCalledWith(200)
+      expect(res.json).toHaveBeenCalledWith(mockPokemon)
+    })
+
+    it('should handle empty pokemon name', async () => {
+      const req = {
+        params: { name: '' },
+      } as unknown as Request
+
+      const res = mockResponse()
+
+      await getPokemon(req, res)
+
+      expect(res.status).toHaveBeenCalledWith(400)
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'Pokemon name is required',
+      })
+    })
+
+    it('should handle missing pokemon name', async () => {
+      const req = {
+        params: {},
+      } as unknown as Request
+
+      const res = mockResponse()
+
+      await getPokemon(req, res)
+
+      expect(res.status).toHaveBeenCalledWith(400)
+      expect(res.json).toHaveBeenCalledWith({
+        error: 'Pokemon name is required',
+      })
+    })
   })
 })
