@@ -1,0 +1,12 @@
+# Ignore dependencies and build outputs
+node_modules
+dist
+.vite
+coverage
+
+# Ignore environment files
+.env
+.env.*
+
+# Ignore other generated files
+.DS_Store
