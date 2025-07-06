@@ -3,13 +3,17 @@ import InputField from '../molecules/InputField';
 import Button from '../atoms/Button';
 import LinkTo from '../atoms/LinkTo';
 
+/**
+ * RegisterForm Organism
+ * The complete user registration form.
+ */
 export default function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Registering with:', { email, password });
+    console.log('Login with:', { email, password });
   };
 
   return (
@@ -36,12 +40,12 @@ export default function RegisterForm() {
           required
         />
         <div className="mt-6">
-          <Button type="submit">Create Account</Button>
+          <Button type="submit">Login</Button>
         </div>
         <p className="text-center text-indigo-300 text-sm mt-6">
-          Already have an account?{' '}
-          <LinkTo to="/login" className="font-bold text-yellow-300 hover:text-yellow-400">
-            Login here
+          Don&apos;t have an account?{' '}
+          <LinkTo to="/login">
+            Register here
           </LinkTo>
         </p>
       </form>

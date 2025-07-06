@@ -4,12 +4,14 @@ import Page from './Page'; // Adjusted path assuming stories are in a top-level 
 
 // This is a mock component to demonstrate the wrapper functionality
 const MockRegisterPage = () => (
-  <div className="w-full max-w-md bg-indigo-800 bg-opacity-50 shadow-2xl rounded-2xl p-8 text-white">
-    <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
-    <p className="text-center">This is where the registration form would go.</p>
-    <button className="mt-6 w-full px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-bold rounded-xl shadow-lg transition duration-200">
-      Mock Register Button
-    </button>
+  <div className="w-full text-white">
+    <h2 className="text-2xl font-bold mb-4 text-center">Sample Page</h2>
+    <p className="text-center">This is where the content would go.</p>
+    <div className="mt-6 max-w-40 mx-auto">
+      <button className="mt-6 w-full px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-bold rounded-xl shadow-lg transition duration-200">
+        Mock Button
+      </button>
+    </div>
   </div>
 );
 

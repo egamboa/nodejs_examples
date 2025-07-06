@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MemoryRouter } from 'react-router-dom';
-import RegisterForm from './RegisterForm';
+import AuthForm from './AuthForm';
 
-const meta: Meta<typeof RegisterForm> = {
-  title: 'Compounds/RegisterForm',
-  component: RegisterForm,
+const meta: Meta<typeof AuthForm> = {
+  title: 'Compounds/AuthForm',
+  component: AuthForm,
   decorators: [
     (Story) => (
       <MemoryRouter>
@@ -22,5 +22,4 @@ const meta: Meta<typeof RegisterForm> = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-
 export const Default: Story = {};

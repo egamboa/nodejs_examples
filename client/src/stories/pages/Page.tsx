@@ -18,8 +18,10 @@ export default function Page({ children }: PageProps) {
       </header>
 
       {/* Scrollable page content */}
-      <main className="flex-grow w-full overflow-auto px-4 py-6">
-        {children}
+      <main className="flex-grow flex-col items-center w-full overflow-auto px-4 py-6">
+        <div className="w-full flex flex-col items-center mt-20">
+          {children}
+        </div>
       </main>
 
       {/* Optional: future footer goes here */}

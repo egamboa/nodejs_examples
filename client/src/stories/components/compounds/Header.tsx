@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 import Button from '../atoms/Button'
+import LinkTo from '../atoms/LinkTo'
 
 export interface HeaderProps {
   user?: {
@@ -11,40 +11,39 @@ export interface HeaderProps {
 }
 
 /**
- * Header Component
- * Displays the logo/title and user authentication actions.
+ * Compact Header Component
  */
 export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps) => {
   return (
-    <header className="bg-indigo-900/30 p-4 border-b border-indigo-700">
-      <div className="container mx-auto flex justify-between items-center">
+    <header className="bg-transparent px-4 py-2 shadow-sm">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Left: Logo + Title */}
-        <Link to="/" className="flex items-center gap-3 text-yellow-300 hover:opacity-90">
+        <LinkTo to="/" className="flex items-center gap-2 text-yellow-300 hover:opacity-90">
           <img
             src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
             alt="Pikachu"
-            className="w-10 h-10"
+            className="w-20 h-20"
           />
-          <h1 className="text-2xl font-bold tracking-tight">Pokémon Finder</h1>
-        </Link>
+          <h1 className="text-lg tracking-tight leading-none">Pokémon Finder</h1>
+        </LinkTo>
 
         {/* Right: Auth Actions */}
-        <nav className="flex items-center gap-4">
+        <nav className="flex items-center gap-2">
           {user ? (
             <>
-              <span className="text-indigo-200 hidden sm:inline">
-                Welcome, <b className="text-white font-medium">{user.name}</b>
+              <span className="text-black text-md hidden sm:inline min-w-50">
+                Welcome, <b className="text-black font-semibold">{user.name}</b>
               </span>
-              <Button onClick={onLogout} variant="secondary">
+              <Button onClick={onLogout} variant="secondary" className="text-sm px-3 py-1.5">
                 Log out
               </Button>
             </>
           ) : (
             <>
-              <Button onClick={onLogin} variant="secondary">
+              <Button onClick={onLogin} variant="secondary" className="text-sm px-3 py-1.5">
                 Log in
               </Button>
-              <Button onClick={onCreateAccount} variant="primary">
+              <Button onClick={onCreateAccount} variant="primary" className="min-w-30 text-sm px-3 py-1.5">
                 Sign up
               </Button>
             </>

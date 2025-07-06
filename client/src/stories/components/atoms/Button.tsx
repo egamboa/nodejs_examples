@@ -16,11 +16,11 @@ export default function Button({
   variant = 'primary', 
   ...props 
 }: ButtonProps) {
-  const baseClasses = "w-full px-6 py-3 font-bold rounded-xl shadow-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-75";
+  const baseClasses = "w-full hover:text-white text-black px-6 py-3 border font-bold rounded-xl shadow-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-75";
   
   const variantClasses = {
-    primary: 'bg-yellow-400 hover:bg-yellow-500 text-black focus:ring-yellow-400',
-    secondary: 'border border-white hover:bg-white hover:text-indigo-800 text-black focus:ring-white'
+    primary: 'bg-yellow-400 hover:bg-black focus:ring-yellow-400',
+    secondary: 'bg-white hover:bg-black focus:ring-white'
   };
 
   return (
