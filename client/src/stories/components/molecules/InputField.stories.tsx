@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import InputField from './InputField';
+import InputField from '../../../components/molecules/InputField';
 
 const meta: Meta<typeof InputField> = {
   title: 'Molecules/InputField',

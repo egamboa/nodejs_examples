@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MemoryRouter } from 'react-router-dom';
-import Page from './Page'; // Adjusted path assuming stories are in a top-level folder
+import Page from '../../pages/Page'; // Adjusted path assuming stories are in a top-level folder
 
 // This is a mock component to demonstrate the wrapper functionality
 const MockRegisterPage = () => (
@@ -29,7 +29,6 @@ const meta: Meta<typeof Page> = {
   parameters: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'], // Enables automatic documentation generation
 };
 
 export default meta;
@@ -40,17 +39,5 @@ export const WithRegisterPage: Story = {
   args: {
     // The 'children' prop is where we pass the component to be wrapped
     children: <MockRegisterPage />,
-  },
-};
-
-// Story that shows the Page component with simple text content
-export const WithSimpleText: Story = {
-  args: {
-    children: (
-      <div className="text-center">
-        <h2 className="text-2xl font-bold">Hello, World!</h2>
-        <p>This is the generic page wrapper with simple text content.</p>
-      </div>
-    ),
   },
 };

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MemoryRouter } from 'react-router-dom';
-import Login from './Login'; // Adjust the import path to your component
+import Login from '../../pages/Login'; // Adjust the import path to your component
 
 // Basic configuration for the component story
 const meta: Meta<typeof Login> = {

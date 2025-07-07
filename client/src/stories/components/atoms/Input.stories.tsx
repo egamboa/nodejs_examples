@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import Input from './Input'; // Adjusted import path
+import Input from '../../../components/atoms/Input';
 
 const meta: Meta<typeof Input> = {
   title: 'Atoms/Input',
@@ -10,6 +10,13 @@ const meta: Meta<typeof Input> = {
     type: { control: 'text' },
     disabled: { control: 'boolean' },
   },
+  decorators: [
+    (Story) => (
+      <div className="p-8 bg-gradient-to-br from-indigo-900 via-indigo-700 to-indigo-600">
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;

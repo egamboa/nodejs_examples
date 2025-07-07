@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MemoryRouter } from 'react-router-dom';
-import AuthForm from './AuthForm';
+import AuthForm from '../../../components/compounds/AuthForm';
 
 const meta: Meta<typeof AuthForm> = {
   title: 'Compounds/AuthForm',

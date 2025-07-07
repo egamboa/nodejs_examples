@@ -44,7 +44,7 @@ export default function RegisterForm() {
         </div>
         <p className="text-center text-indigo-300 text-sm mt-6">
           Don&apos;t have an account?{' '}
-          <LinkTo to="/login">
+          <LinkTo to="/sign-up">
             Register here
           </LinkTo>
         </p>

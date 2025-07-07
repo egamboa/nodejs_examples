@@ -1,6 +1,5 @@
 import Page from './Page';
-import Button from '../components/atoms/Button';
-
+import LinkTo from '../components/atoms/LinkTo';
 
 export default function Welcome() {
 
@@ -15,8 +14,12 @@ export default function Welcome() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button variant="primary">Go to Pokédex</Button>
-          <Button variant="secondary">Search Pokémon</Button>
+          <LinkTo to="/" asButton buttonClassName="w-full sm:w-auto">
+            Go to Pokédex
+          </LinkTo>
+          <LinkTo to="/" asButton buttonVariant='secondary' buttonClassName="w-full sm:w-auto">
+            Search Pokémon
+          </LinkTo>
         </div>
 
         <img

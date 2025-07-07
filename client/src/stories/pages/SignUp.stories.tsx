@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MemoryRouter } from 'react-router-dom';
-import RegisterPage from './RegisterPage'; // Adjust the import path to your component
+import SignUp from '../../pages/SignUp'; // Adjust the import path to your component
 
 // Basic configuration for the component story
-const meta: Meta<typeof RegisterPage> = {
-  title: 'Pages/RegisterPage',
-  component: RegisterPage,
+const meta: Meta<typeof SignUp> = {
+  title: 'Pages/SignUp',
+  component: SignUp,
   // This decorator wraps the story in a router so <Link> works
   decorators: [
     (Story) => (

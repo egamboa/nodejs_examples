@@ -5,15 +5,13 @@ export interface HeaderProps {
   user?: {
     name: string
   }
-  onLogin?: () => void
   onLogout?: () => void
-  onCreateAccount?: () => void
 }
 
 /**
  * Compact Header Component
  */
-export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps) => {
+export const Header = ({ user, onLogout }: HeaderProps) => {
   return (
     <header className="bg-transparent px-4 py-2 shadow-sm">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -40,12 +38,12 @@ export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps
             </>
           ) : (
             <>
-              <Button onClick={onLogin} variant="secondary" className="text-sm px-3 py-1.5">
+              <LinkTo to="/login" asButton buttonVariant='secondary' buttonClassName="text-sm px-3 py-1.5">
                 Log in
-              </Button>
-              <Button onClick={onCreateAccount} variant="primary" className="min-w-30 text-sm px-3 py-1.5">
+              </LinkTo>
+              <LinkTo to="/sign-up" asButton buttonClassName="text-sm px-3 py-1.5">
                 Sign up
-              </Button>
+              </LinkTo>
             </>
           )}
         </nav>

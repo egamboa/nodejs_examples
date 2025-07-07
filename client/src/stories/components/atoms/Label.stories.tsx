@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import Label from './Label'; // Adjusted import path
+import Label from '../../../components/atoms/Label';
+import { MemoryRouter } from 'react-router-dom'
 
 const meta: Meta<typeof Label> = {
   title: 'Atoms/Label',
@@ -8,6 +9,15 @@ const meta: Meta<typeof Label> = {
    argTypes: {
     children: { control: 'text' },
   },
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <div className="p-8 bg-gradient-to-br from-indigo-900 via-indigo-700 to-indigo-600">
+          <Story />
+        </div>
+      </MemoryRouter>
+    ),
+  ],
 };
 
 export default meta;

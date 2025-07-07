@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MemoryRouter } from 'react-router-dom';
-import Welcome from './Welcome'; // Adjust the import path to your component
+import Welcome from '../../pages/Welcome'; // Adjust the import path to your component
 
 // Basic configuration for the component story
 const meta: Meta<typeof Welcome> = {

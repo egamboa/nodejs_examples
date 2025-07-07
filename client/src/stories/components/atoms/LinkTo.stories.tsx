@@ -1,27 +1,46 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import LinkTo from './LinkTo'
 import { MemoryRouter } from 'react-router-dom'
+import LinkTo from '../../../components/atoms/LinkTo'
 
 const meta: Meta<typeof LinkTo> = {
-  title: 'Atoms/Link',
+  title: 'Atoms/LinkTo',
   component: LinkTo,
+  tags: ['autodocs'],
   decorators: [
     (Story) => (
       <MemoryRouter>
-        <div className="bg-indigo-900 min-h-24 flex items-center justify-center">
+        <div className="p-8 bg-gradient-to-br from-indigo-900 via-indigo-700 to-indigo-600">
           <Story />
         </div>
       </MemoryRouter>
     ),
   ],
-  args: {
-    to: '/',
-    children: 'Go back home',
-  },
-  tags: ['autodocs'],
 }
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof LinkTo>
 
-export const Default: Story = {}
+export const Default: Story = {
+  args: {
+    to: '/login',
+    children: 'Go to Login',
+  },
+}
+
+export const AsButton: Story = {
+  args: {
+    to: '/dashboard',
+    children: 'Dashboard',
+    asButton: true,
+    buttonClassName: 'w-48',
+  },
+}
+export const AsButtonWithVariant: Story = {
+  args: {
+    to: '/settings',
+    children: 'Settings',
+    asButton: true,
+    buttonVariant: 'secondary',
+    buttonClassName: 'w-48',
+  },
+}

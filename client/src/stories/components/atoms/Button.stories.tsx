@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import Button from './Button'; // Adjusted import path
+import Button from '../../../components/atoms/Button';
 
 const meta: Meta<typeof Button> = {
   title: 'Atoms/Button',
@@ -13,6 +13,13 @@ const meta: Meta<typeof Button> = {
     },
     disabled: { control: 'boolean' },
   },
+  decorators: [
+    (Story) => (
+      <div className="p-8 bg-gradient-to-br from-indigo-900 via-indigo-700 to-indigo-600">
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;

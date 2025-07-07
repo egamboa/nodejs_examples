@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MemoryRouter } from 'react-router-dom';
-import RegisterForm from './RegisterForm';
+import RegisterForm from '../../../components/compounds/RegisterForm';
 
 const meta: Meta<typeof RegisterForm> = {
   title: 'Compounds/RegisterForm',
