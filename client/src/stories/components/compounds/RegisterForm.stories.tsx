@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import RegisterForm from '../../../components/compounds/RegisterForm';
 
 const meta: Meta<typeof RegisterForm> = {
-  title: 'Compounds/RegisterForm',
+  title: 'Design System/Compounds/RegisterForm',
   component: RegisterForm,
   decorators: [
     (Story) => (

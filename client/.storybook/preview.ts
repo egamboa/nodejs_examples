@@ -23,13 +23,11 @@ const preview: Preview = {
         order: [
           'Layout',
           'Pages',
-          'Compounds',
-          'Organisms',
-          'Molecules',
-          'Atoms',
-        ]
-      }
-    }
+          'Design System',
+          ['Atoms', 'Molecules', 'Compounds'],
+        ],
+      },
+    },
   },
 };
 

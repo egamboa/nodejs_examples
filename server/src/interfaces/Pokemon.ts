@@ -1,7 +1,7 @@
 export interface PokemonList {
   count: number
-  next: string | null
-  previous: string | null
+  next: boolean | null
+  previous: boolean | null
   results: { name: string; url: string }[]
 }
 

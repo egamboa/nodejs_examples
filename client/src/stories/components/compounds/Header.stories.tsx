@@ -4,7 +4,7 @@ import { fn } from 'storybook/test'
 import { Header } from '../../../components/compounds/Header'
 
 const meta: Meta<typeof Header> = {
-  title: 'Compounds/Header',
+  title: 'Design System/Compounds/Header',
   component: Header,
   tags: ['autodocs'],
   parameters: {

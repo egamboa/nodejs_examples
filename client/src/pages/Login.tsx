@@ -1,8 +1,23 @@
 import Page from './Page';
 import LinkTo from '../components/atoms/LinkTo';
 import AuthForm from '../components/compounds/AuthForm';
+import { useAuth } from '../hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoginPage() {
+
+  const { login } = useAuth()
+  const navigate = useNavigate()
+
+
+  const handleSubmit = async (email: string, password: string) => {
+    try {
+      await login(email, password)
+      navigate('/welcome')
+    } catch (err) {
+      console.log('Failed to login', err)
+    }
+  }
 
   return (
     <Page>
@@ -15,7 +30,7 @@ export default function LoginPage() {
         </div>
 
         <div className='max-w-md mx-auto'>
-          <AuthForm />   
+          <AuthForm onSubmit={handleSubmit} />   
         </div>
       </div>
     </Page>

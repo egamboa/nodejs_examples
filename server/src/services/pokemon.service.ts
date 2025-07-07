@@ -38,8 +38,15 @@ export async function list(limit: number, offset: number) {
       }),
     )
 
-    await redis.set(listCacheKey, JSON.stringify(fullDetails), 'EX', CACHE_TTL)
-    return fullDetails
+    const reponse: PokemonList = {
+      count: data.count,
+      next: !!data.next,
+      previous: !!data.previous,
+      results: fullDetails,
+    }
+
+    await redis.set(listCacheKey, JSON.stringify(reponse), 'EX', CACHE_TTL)
+    return reponse
   } catch {
     return Promise.reject(genericErrorMessage)
   }

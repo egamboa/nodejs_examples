@@ -3,7 +3,7 @@ import Label from '../../../components/atoms/Label';
 import { MemoryRouter } from 'react-router-dom'
 
 const meta: Meta<typeof Label> = {
-  title: 'Atoms/Label',
+  title: 'Design System/Atoms/Label',
   component: Label,
   tags: ['autodocs'],
    argTypes: {

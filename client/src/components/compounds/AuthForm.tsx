@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
-import InputField from '../molecules/InputField';
-import Button from '../atoms/Button';
-import LinkTo from '../atoms/LinkTo';
+import React, { useState } from 'react'
+import InputField from '../molecules/InputField'
+import Button from '../atoms/Button'
+import LinkTo from '../atoms/LinkTo'
 
-/**
- * RegisterForm Organism
- * The complete user registration form.
- */
-export default function RegisterForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export interface AuthFormProps {
+  onSubmit: (email: string, password: string) => void
+}
+
+export default function RegisterForm({ onSubmit }: AuthFormProps) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('Login with:', { email, password });
-  };
+    e.preventDefault()
+    console.log('Login with:', { email, password })
+    onSubmit(email, password)
+  }
 
   return (
       <form
@@ -43,11 +44,11 @@ export default function RegisterForm() {
           <Button type="submit">Login</Button>
         </div>
         <p className="text-center text-indigo-300 text-sm mt-6">
-          Don&apos;t have an account?{' '}
+          Don&apost have an account?{' '}
           <LinkTo to="/sign-up">
             Register here
           </LinkTo>
         </p>
       </form>
-  );
+  )
 }

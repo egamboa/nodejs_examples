@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom'
 import LinkTo from '../../../components/atoms/LinkTo'
 
 const meta: Meta<typeof LinkTo> = {
-  title: 'Atoms/LinkTo',
+  title: 'Design System/Atoms/LinkTo',
   component: LinkTo,
   tags: ['autodocs'],
   decorators: [

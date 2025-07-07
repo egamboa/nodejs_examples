@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import InputField from '../../../components/molecules/InputField';
 
 const meta: Meta<typeof InputField> = {
-  title: 'Molecules/InputField',
+  title: 'Design System/Molecules/InputField',
   component: InputField,
   tags: ['autodocs'],
   argTypes: {

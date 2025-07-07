@@ -18,7 +18,12 @@ describe('Pokemon Controller', () => {
 
   describe('getAllPokemons', () => {
     it('should return a list of pokemons', async () => {
-      const mockData = [{ name: 'pikachu' }]
+      const mockData = {
+        count: 2,
+        next: false,
+        previous: false,
+        results: [{ name: 'bulbasur' }, { name: 'ivysur' }],
+      }
       ;(PokemonService.list as jest.Mock).mockResolvedValue(mockData)
 
       const req = {

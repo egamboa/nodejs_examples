@@ -191,7 +191,12 @@ describe('Pokemon Service', () => {
         'EX',
         3600,
       )
-      expect(result).toEqual([bulbasaur, ivysaur])
+      expect(result).toEqual({
+        count: 2,
+        next: false,
+        previous: false,
+        results: [bulbasaur, ivysaur],
+      })
     })
 
     it('should handle error when axios.get fails in list', async () => {

@@ -15,8 +15,9 @@ export async function getAllPokemons(req: Request, res: Response) {
   const offset = parseInt(req.query.offset as string) || 0
 
   try {
-    const pokemons = await listPokemons(limit, offset)
-    res.status(200).json(pokemonsTransformCollection(pokemons))
+    const payload = await listPokemons(limit, offset)
+    payload.results = pokemonsTransformCollection(payload.results)
+    res.status(200).json(payload)
   } catch (err) {
     return handleError(res, err, 500, 'Failed to fetch pokemons')
   }

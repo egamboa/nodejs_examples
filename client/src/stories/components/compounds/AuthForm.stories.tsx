@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import AuthForm from '../../../components/compounds/AuthForm';
 
 const meta: Meta<typeof AuthForm> = {
-  title: 'Compounds/AuthForm',
+  title: 'Design System/Compounds/AuthForm',
   component: AuthForm,
   decorators: [
     (Story) => (
