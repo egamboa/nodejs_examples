@@ -9,14 +9,7 @@ const meta: Meta<typeof Input> = {
     placeholder: { control: 'text' },
     type: { control: 'text' },
     disabled: { control: 'boolean' },
-  },
-  decorators: [
-    (Story) => (
-      <div className="p-8 bg-gradient-to-br from-indigo-900 via-indigo-700 to-indigo-600">
-        <Story />
-      </div>
-    ),
-  ],
+  }
 };
 
 export default meta;

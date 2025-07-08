@@ -12,14 +12,7 @@ const meta: Meta<typeof Button> = {
       options: ['primary', 'secondary'],
     },
     disabled: { control: 'boolean' },
-  },
-  decorators: [
-    (Story) => (
-      <div className="p-8 bg-gradient-to-br from-indigo-900 via-indigo-700 to-indigo-600">
-        <Story />
-      </div>
-    ),
-  ],
+  }
 };
 
 export default meta;

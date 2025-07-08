@@ -1,22 +1,38 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
-import {jwtDecode} from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 import { AuthContext } from './AuthContext'
 import type { User } from '../interfaces/User'
 
 const API_BASE_URL = 'http://localhost:4000/auth'
+const LOCAL_STORAGE_KEY = 'jwt:token'
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [token, setToken] = useState<string | null>(null)
 
+  useEffect(() => {
+    const storedToken = localStorage.getItem(LOCAL_STORAGE_KEY)
+    if (storedToken) {
+      try {
+        const decoded = jwtDecode<User>(storedToken)
+        setUser(decoded)
+        setToken(storedToken)
+      } catch (error) {
+        console.error('Invalid token in localStorage', error)
+        localStorage.removeItem(LOCAL_STORAGE_KEY)
+      }
+    }
+  }, [])
+
   const login = async (email: string, password: string) => {
     const response = await axios.post(`${API_BASE_URL}/login`, { email, password })
     const token = response.data.token
-    setToken(token)
     const decoded = jwtDecode<User>(token)
-    localStorage.setItem('jwt:token', token)
+
+    setToken(token)
     setUser(decoded)
+    localStorage.setItem(LOCAL_STORAGE_KEY, token)
   }
 
   const register = async (email: string, password: string) => {
@@ -25,7 +41,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const logout = () => {
-    localStorage.removeItem('token')
+    localStorage.removeItem(LOCAL_STORAGE_KEY)
     setUser(null)
     setToken(null)
   }

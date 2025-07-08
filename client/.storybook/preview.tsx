@@ -1,7 +1,20 @@
 import type { Preview } from '@storybook/react-vite'
+import { MockAuthProvider } from '../src/stories/mocks/MockAuthProvider'
+import { MemoryRouter } from 'react-router-dom';
 import '../src/index.css';
 
 const preview: Preview = {
+  decorators: [
+    (Story) => (
+      <MockAuthProvider>
+        <MemoryRouter>
+          <div className="p-4 bg-gradient-to-br from-indigo-900 via-indigo-700 to-indigo-600">
+            <Story />
+          </div>
+        </MemoryRouter>
+      </MockAuthProvider>
+    ),
+  ],
   parameters: {
     controls: {
       matchers: {

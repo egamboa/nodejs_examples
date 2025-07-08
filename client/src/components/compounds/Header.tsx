@@ -21,8 +21,8 @@ export const Header = () => {
         <nav className="flex items-center gap-2">
           {user ? (
             <>
-              <span className="text-black text-md hidden sm:inline min-w-50">
-                Welcome, <b className="text-black font-semibold">{user.name}</b>
+              <span className="text-white text-md hidden sm:inline min-w-50">
+                Welcome, <b className="font-semibold">{user.email}</b>
               </span>
               <Button onClick={logout} variant="secondary" className="text-sm px-3 py-1.5">
                 Log out

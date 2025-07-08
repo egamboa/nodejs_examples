@@ -8,16 +8,7 @@ const meta: Meta<typeof Label> = {
   tags: ['autodocs'],
    argTypes: {
     children: { control: 'text' },
-  },
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <div className="p-8 bg-gradient-to-br from-indigo-900 via-indigo-700 to-indigo-600">
-          <Story />
-        </div>
-      </MemoryRouter>
-    ),
-  ],
+  }
 };
 
 export default meta;
