@@ -1,4 +1,14 @@
 services:
+  storybook:
+    build: ./client
+    container_name: example-app-sb
+    restart: always
+    ports:
+      - "4002:4002"
+    command: npm run storybook
+    volumes:
+      - ./client:/app
+      - /app/node_modules
   app:
     build: ./client
     container_name: example-app-fe
@@ -14,7 +24,6 @@ services:
     volumes:
       - ./client:/app
       - /app/node_modules
-
   api:
     build: ./server
     container_name: example-app-api

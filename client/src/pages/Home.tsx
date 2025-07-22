@@ -1,7 +1,9 @@
 import Page from './Page';
 import LinkTo from '../components/atoms/LinkTo';
+import { useAuth } from '../hooks/useAuth'
 
 export default function Home() {
+  const { user } = useAuth()
 
   return (
     <Page>
@@ -14,14 +16,16 @@ export default function Home() {
             Search, discover, and learn about all your favorite Pokémon. Register to
             start your journey or log in to continue exploring the world of Pokémon.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <LinkTo to="/login" asButton buttonVariant="secondary" buttonClassName="w-full sm:w-auto">
-              Login
-            </LinkTo>
-            <LinkTo to="/sign-up" asButton buttonClassName="w-full sm:w-auto">
-              Sign Up
-            </LinkTo>
-          </div>
+          {!user ? (
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <LinkTo to="/login" asButton buttonVariant="secondary" buttonClassName="w-full sm:w-auto">
+                Login
+              </LinkTo>
+              <LinkTo to="/sign-up" asButton buttonClassName="w-full sm:w-auto">
+                Sign Up
+              </LinkTo>
+            </div>
+          ) : null }
         </div>
         <div className="mt-16">
           <img
