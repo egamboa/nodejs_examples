@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode'
 import { AuthContext } from './AuthContext'
 import type { User } from '../interfaces/User'
 
-const API_BASE_URL = 'http://localhost:4000/auth'
+const API_BASE_URL = (import.meta.env.VITE_API_URL ?? 'http://localhost:4000') + '/auth'
 const LOCAL_STORAGE_KEY = 'jwt:token'
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {

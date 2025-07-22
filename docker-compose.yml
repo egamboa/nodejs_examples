@@ -1,9 +1,23 @@
-version: '3.9'
-
 services:
   app:
-    build: .
-    container_name: example-app
+    build: ./client
+    container_name: example-app-fe
+    restart: always
+    ports:
+      - "4001:4001"
+    environment:
+      - PORT=4001
+      - API_URL=http://api:4000
+      - VITE_PORT=4001
+    depends_on:
+      - api
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
+  api:
+    build: ./server
+    container_name: example-app-api
     restart: always
     ports:
       - "4000:4000"
@@ -16,8 +30,8 @@ services:
       - postgres
       - redis
     volumes:
-      - .:/app
-      - /app/node_modules
+      - ./server:/api
+      - /api/node_modules
 
   postgres:
     image: postgres:15

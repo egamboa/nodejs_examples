@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Label from '../../../components/atoms/Label';
-import { MemoryRouter } from 'react-router-dom'
 
 const meta: Meta<typeof Label> = {
   title: 'Design System/Atoms/Label',
