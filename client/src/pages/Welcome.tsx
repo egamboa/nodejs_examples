@@ -14,11 +14,11 @@ export default function Welcome() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <LinkTo to="/" asButton buttonClassName="w-full sm:w-auto">
-            Go to Pokédex
-          </LinkTo>
-          <LinkTo to="/" asButton buttonVariant='secondary' buttonClassName="w-full sm:w-auto">
+          <LinkTo to="/search" asButton buttonVariant='secondary' buttonClassName="w-full sm:w-auto">
             Search Pokémon
+          </LinkTo>
+          <LinkTo to="/pokedex" asButton buttonClassName="w-full sm:w-auto">
+            Go to Pokédex
           </LinkTo>
         </div>
 

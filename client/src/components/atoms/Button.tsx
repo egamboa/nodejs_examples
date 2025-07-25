@@ -1,15 +1,10 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-// Define the props, extending standard button props
 interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   children: ReactNode;
   variant?: 'primary' | 'secondary';
 }
 
-/**
- * Button Atom
- * The primary call-to-action button for the application.
- */
 export default function Button({ 
   children, 
   className = '', 

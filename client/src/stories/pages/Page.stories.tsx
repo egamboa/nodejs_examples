@@ -21,10 +21,8 @@ const meta: Meta<typeof Page> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Story that shows the Page component wrapping a mock register page
 export const WithRegisterPage: Story = {
   args: {
-    // The 'children' prop is where we pass the component to be wrapped
     children: <MockRegisterPage />,
   },
 };

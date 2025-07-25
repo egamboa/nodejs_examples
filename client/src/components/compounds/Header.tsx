@@ -17,6 +17,15 @@ export const Header = () => {
           />
           <h1 className="text-lg tracking-tight leading-none">Pokémon Finder</h1>
         </LinkTo>
+        <nav className="flex items-start gap-6 w-3 grow mx-10">
+          <LinkTo to="/search">
+            Search
+          </LinkTo>
+          |
+          <LinkTo to="/pokedex">
+            Pokedex
+          </LinkTo>
+        </nav>
 
         <nav className="flex items-center gap-2">
           {user ? (
@@ -30,10 +39,10 @@ export const Header = () => {
             </>
           ) : (
             <>
-              <LinkTo to="/login" asButton buttonVariant='secondary' buttonClassName="text-sm px-3 py-1.5">
+              <LinkTo to="/login" asButton buttonVariant='secondary'>
                 Log in
               </LinkTo>
-              <LinkTo to="/sign-up" asButton buttonClassName="text-sm px-3 py-1.5">
+              <LinkTo to="/sign-up" asButton>
                 Sign up
               </LinkTo>
             </>
