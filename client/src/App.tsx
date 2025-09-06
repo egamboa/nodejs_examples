@@ -7,6 +7,7 @@ import NotFound from './pages/NotFound'
 import Welcome from './pages/Welcome'
 import Search from './pages/Search'
 import Pokedex from './pages/Pokedex';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -14,10 +15,23 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<Register />} />
-        <Route path="/welcome" element={<Welcome />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/pokedex" element={<Pokedex />} />
         <Route path="/" element={<Home />} />
+        {/* Protected routes */}
+        <Route path="/welcome" element={
+          <ProtectedRoute>
+            <Welcome />
+          </ProtectedRoute>
+        } />
+        <Route path="/search" element={
+          <ProtectedRoute>
+            <Search />
+          </ProtectedRoute>
+        } />
+        <Route path="/pokedex" element={
+          <ProtectedRoute>
+            <Pokedex />
+          </ProtectedRoute>
+        } />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
