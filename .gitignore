@@ -19,4 +19,4 @@ yarn-error.log
 *.env.production
 *.env.example
 .idea
-  
+.github
