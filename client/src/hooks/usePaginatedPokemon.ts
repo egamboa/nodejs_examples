@@ -1,10 +1,7 @@
 // hooks/usePaginatedPokemon.ts
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import axios from 'axios'
+import api from '../api/axios'
 import { useEffect } from 'react'
-
-const API_BASE_URL = 'http://localhost:4000/pokemon'
-
 interface PokemonResult {
   name: string
   url: string
@@ -23,7 +20,7 @@ export function usePaginatedPokemon(limit: number, offset: number) {
   const query = useQuery<PaginatedResponse, Error>({
     queryKey: ['pokemon', limit, offset],
     queryFn: async () => {
-      const res = await axios.get(`${API_BASE_URL}?limit=${limit}&offset=${offset}`)
+      const res = await api.get(`pokemon?limit=${limit}&offset=${offset}`)
       return res.data
     },
     placeholderData: (prev) => prev,
@@ -37,7 +34,7 @@ export function usePaginatedPokemon(limit: number, offset: number) {
       queryClient.prefetchQuery({
         queryKey: ['pokemon', limit, nextOffset],
         queryFn: async () => {
-          const res = await axios.get(`${API_BASE_URL}?limit=${limit}&offset=${nextOffset}`)
+          const res = await api.get(`pokemon?limit=${limit}&offset=${nextOffset}`)
           return res.data
         },
       })

@@ -3,10 +3,6 @@ import {
   list as listPokemons,
   findOne as findOnePokemon,
 } from '../services/pokemon.service'
-import {
-  transformCollection as pokemonsTransformCollection,
-  transformOne as pokemonsTransformOne,
-} from '../transformers/pokemon.transformer'
 
 import { handleError } from '../utils/handleError'
 
@@ -16,7 +12,6 @@ export async function getAllPokemons(req: Request, res: Response) {
 
   try {
     const payload = await listPokemons(limit, offset)
-    payload.results = pokemonsTransformCollection(payload.results)
     res.status(200).json(payload)
   } catch (err) {
     return handleError(res, err, 500, 'Failed to fetch pokemons')
@@ -33,7 +28,7 @@ export async function getPokemon(req: Request, res: Response) {
     if (!pokemon) {
       return handleError(res, null, 404, 'Pokemon not found')
     }
-    res.status(200).json(pokemonsTransformOne(pokemon))
+    res.status(200).json(pokemon)
   } catch (err) {
     return handleError(res, err, 500, 'Failed to fetch Pokemon data')
   }

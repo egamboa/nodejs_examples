@@ -1,11 +1,12 @@
 import Button from '../atoms/Button'
 import LinkTo from '../atoms/LinkTo'
 import { useAuth } from '../../hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
 
 
 export const Header = () => {
   const { user, logout } = useAuth()
-
+  const navigate = useNavigate();
   return (
     <header className="bg-transparent px-4 py-2 shadow-sm">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -37,7 +38,10 @@ export const Header = () => {
               <span className="text-white text-md hidden sm:inline min-w-50">
                 Welcome, <b className="font-semibold">{user.email}</b>
               </span>
-              <Button onClick={logout} variant="secondary" className="text-sm px-3 py-1.5">
+              <Button onClick={() => {
+                logout();
+                navigate('/login');
+              }} variant="secondary" className="text-sm px-3 py-1.5">
                 Log out
               </Button>
             </>

@@ -8,8 +8,9 @@ import Welcome from './pages/Welcome'
 import Search from './pages/Search'
 import Pokedex from './pages/Pokedex';
 import ProtectedRoute from './components/ProtectedRoute';
+import PokemonList from './pages/PokemonList'
 
-function App() {
+function App() {  
   return (
     <BrowserRouter>
       <Routes>
@@ -30,6 +31,11 @@ function App() {
         <Route path="/pokedex" element={
           <ProtectedRoute>
             <Pokedex />
+          </ProtectedRoute>
+        } />
+        <Route path="/list" element={
+          <ProtectedRoute>
+            <PokemonList />
           </ProtectedRoute>
         } />
         <Route path="*" element={<NotFound />} />

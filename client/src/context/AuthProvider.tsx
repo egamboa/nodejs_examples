@@ -1,55 +1,75 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
 import { AuthContext } from './AuthContext'
 import type { User } from '../interfaces/User'
+import api from '../api/axios';
 
-const API_BASE_URL = (import.meta.env.VITE_API_URL ?? 'http://localhost:4000') + '/auth'
 const LOCAL_STORAGE_KEY = 'jwt:token'
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Token is invalid or expired
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+      // You might want to redirect to login here or use a callback
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
-  const [token, setToken] = useState<string | null>(null)
-  const [loading, setLoading] = useState(true);
+  const [loading , setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem(LOCAL_STORAGE_KEY)
-    if (storedToken) {
-      try {
-        const decoded = jwtDecode<User>(storedToken)
-        setUser(decoded)
-        setToken(storedToken)
-      } catch (error) {
-        console.error('Invalid token in localStorage', error)
-        localStorage.removeItem(LOCAL_STORAGE_KEY)
+    async function verifyToken() {
+      const storedToken = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (storedToken) {  
+        try {
+          const { data } = await api.get(`/auth/me`, {
+            headers: { Authorization: `Bearer ${storedToken}` },
+          });
+          api.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+          setUser(data.user);
+          setIsAuthenticated(true);
+        } catch {
+          // Token is invalid
+          localStorage.removeItem(LOCAL_STORAGE_KEY);
+          setUser(null);
+          setIsAuthenticated(false);
+        }
       }
+      setLoading(false);
     }
-    setLoading(false);
-  }, [])
+    verifyToken();
+  }, []);
 
   const login = async (email: string, password: string) => {
-    const response = await axios.post(`${API_BASE_URL}/login`, { email, password })
+    const response = await api.post(`/auth/login`, { email, password })
     const token = response.data.token
     const decoded = jwtDecode<User>(token)
-
-    setToken(token)
+    setIsAuthenticated(true);
     setUser(decoded)
     localStorage.setItem(LOCAL_STORAGE_KEY, token)
   }
 
   const register = async (email: string, password: string) => {
-    const response = await axios.post(`${API_BASE_URL}/register`, { email, password })
+    const response = await api.post(`/auth/register`, { email, password })
     setUser({ id: response.data.id, email: response.data.email })
   }
 
   const logout = () => {
     localStorage.removeItem(LOCAL_STORAGE_KEY)
     setUser(null)
-    setToken(null)
   }
 
   return (
-    <AuthContext.Provider value={{ user, token, login, register, logout, loading }}>
+    <AuthContext.Provider value={
+      { user, login, register, logout, loading, isAuthenticated }
+    }>
       {children}
     </AuthContext.Provider>
   )

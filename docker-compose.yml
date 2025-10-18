@@ -39,8 +39,8 @@ services:
       - postgres
       - redis
     volumes:
-      - ./server:/api
-      - /api/node_modules
+      - ./server:/app
+      - /app/node_modules
 
   postgres:
     image: postgres:15

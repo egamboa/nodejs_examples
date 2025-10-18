@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { redis } from '../config/redis'
 import { PokemonList, PokemonDetails } from '../interfaces/Pokemon'
+import { transformOne } from '../transformers/pokemon.transformer'
 
 const POKE_API_URL = 'https://pokeapi.co/api/v2/pokemon'
 const CACHE_TTL = 3600 // 1 hour
@@ -23,7 +24,9 @@ export async function list(limit: number, offset: number) {
       `${POKE_API_URL}?limit=${limit}&offset=${offset}`,
     )
 
-    const results = data.results as { name: string; url: string }[]
+    const results = data.results
+
+    console.log('Fetched list from API:', results)
 
     const fullDetails = await Promise.all(
       results.map(async ({ name, url }) => {
@@ -33,20 +36,26 @@ export async function list(limit: number, offset: number) {
         if (cachedPokemon) return JSON.parse(cachedPokemon)
 
         const { data: pokemonData } = await axios.get<PokemonDetails>(url)
-        await redis.set(cacheKey, JSON.stringify(pokemonData), 'EX', CACHE_TTL)
-        return pokemonData
+        const transformedPokemonData = transformOne(pokemonData)
+        await redis.set(
+          cacheKey,
+          JSON.stringify(transformedPokemonData),
+          'EX',
+          CACHE_TTL,
+        )
+        return transformedPokemonData
       }),
     )
 
-    const reponse: PokemonList = {
+    const response: PokemonList = {
       count: data.count,
       next: !!data.next,
       previous: !!data.previous,
       results: fullDetails,
     }
 
-    await redis.set(listCacheKey, JSON.stringify(reponse), 'EX', CACHE_TTL)
-    return reponse
+    await redis.set(listCacheKey, JSON.stringify(response), 'EX', CACHE_TTL)
+    return response
   } catch {
     return Promise.reject(genericErrorMessage)
   }
