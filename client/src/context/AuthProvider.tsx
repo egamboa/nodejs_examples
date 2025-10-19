@@ -3,19 +3,7 @@ import { jwtDecode } from 'jwt-decode'
 import { AuthContext } from './AuthContext'
 import type { User } from '../interfaces/User'
 import api from '../api/axios';
-
-const LOCAL_STORAGE_KEY = 'jwt:token'
-
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem(LOCAL_STORAGE_KEY);
-      window.location.href = '/login';
-    }
-    return Promise.reject(error);
-  }
-);
+import { LOCAL_STORAGE_KEY } from '../constants';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
