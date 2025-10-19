@@ -26,8 +26,6 @@ export async function list(limit: number, offset: number) {
 
     const results = data.results
 
-    console.log('Fetched list from API:', results)
-
     const fullDetails = await Promise.all(
       results.map(async ({ name, url }) => {
         const cacheKey = `pokemon:${name}`

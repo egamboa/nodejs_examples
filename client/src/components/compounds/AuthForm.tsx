@@ -13,7 +13,6 @@ export default function RegisterForm({ onSubmit }: AuthFormProps) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('Login with:', { email, password })
     onSubmit(email, password)
   }
 

@@ -10,10 +10,11 @@ interface MockAuthProviderProps {
 export function MockAuthProvider({ children, mockUser }: MockAuthProviderProps) {
   const mockContext: AuthContextType = {
     user: mockUser ?? null,
-    token: 'mock-token',
     login: async () => {},
     register: async () => {},
     logout: () => console.log('mock logout'),
+    loading: false,
+    isAuthenticated: !!mockUser,
   }
 
   return <AuthContext.Provider value={mockContext}>{children}</AuthContext.Provider>

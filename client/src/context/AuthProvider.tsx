@@ -10,9 +10,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token is invalid or expired
       localStorage.removeItem(LOCAL_STORAGE_KEY);
-      // You might want to redirect to login here or use a callback
       window.location.href = '/login';
     }
     return Promise.reject(error);
@@ -36,7 +34,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setUser(data.user);
           setIsAuthenticated(true);
         } catch {
-          // Token is invalid
           localStorage.removeItem(LOCAL_STORAGE_KEY);
           setUser(null);
           setIsAuthenticated(false);
