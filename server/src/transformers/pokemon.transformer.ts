@@ -1,10 +1,25 @@
 import { PokemonDetails } from '../interfaces/Pokemon'
 
 export function transformOne(pokemon: PokemonDetails): PokemonDetails {
-  const { id, name } = pokemon
+  const {
+    id,
+    name,
+    height,
+    weight,
+    base_experience,
+    abilities,
+    types,
+    sprites,
+  } = pokemon
   return {
     id,
     name,
+    height,
+    weight,
+    base_experience,
+    abilities,
+    types,
+    sprites,
   }
 }
 

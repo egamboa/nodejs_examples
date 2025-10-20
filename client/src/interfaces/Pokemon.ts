@@ -2,14 +2,9 @@ export interface PokemonList {
   count: number
   next: boolean | null
   previous: boolean | null
-  results: PokemonListDetails[]
+  results: PokemonDetails[]
 }
 
-export interface PokemonListDetails {
-  id: number
-  name: string
-  url: string
-}
 export interface PokemonDetails {
   id: number
   name: string
@@ -26,3 +21,4 @@ export interface PokemonDetails {
     }
   }
 }
+

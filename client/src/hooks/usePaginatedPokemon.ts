@@ -2,16 +2,13 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import api from '../api/axios'
 import { useEffect } from 'react'
-interface PokemonResult {
-  name: string
-  url: string
-}
+import type { PokemonDetails } from '../interfaces/Pokemon'
 
 export interface PaginatedResponse {
   count: number
-  next: string | null
+  next: boolean
   previous: string | null
-  results: PokemonResult[]
+  results: PokemonDetails[]
 }
 
 export function usePaginatedPokemon(limit: number, offset: number) {
