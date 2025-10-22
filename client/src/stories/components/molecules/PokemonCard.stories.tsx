@@ -8,6 +8,7 @@ const mockPikachu: PokemonDetails = {
   height: 4,
   weight: 60,
   base_experience: 112,
+  favorite: false,
   abilities: [
     {
       ability: {
@@ -54,7 +55,21 @@ type Story = StoryObj<typeof meta>;
 // Story using the typed mock data
 export const Pikachu: Story = {
   args: {
-    ...mockPikachu, // Pass the mock object as a prop
+    ...mockPikachu,
+  },
+  decorators: [
+    (Story) => (
+      <div className="max-w-xs mx-auto">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const PikachuFavorited: Story = {
+  args: {
+    ...mockPikachu,
+    favorite: true,
   },
   decorators: [
     (Story) => (

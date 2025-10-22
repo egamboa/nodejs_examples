@@ -15,5 +15,13 @@ const config: StorybookConfig = {
     name: '@storybook/react-vite',
     options: {}
   },
+  viteFinal: async (config) => {
+    config.optimizeDeps = config.optimizeDeps || {};
+    config.optimizeDeps.include = [
+      ...(config.optimizeDeps.include || []),
+      '@lucide-react'
+    ];
+    return config;
+  }
 };
 export default config;

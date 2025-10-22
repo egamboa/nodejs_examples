@@ -19,6 +19,7 @@ export interface PokemonDetails {
     other?: {
       'official-artwork'?: { front_default?: string; back_default?: string }
     }
-  }
+  },
+  favorite?: boolean
 }
 
