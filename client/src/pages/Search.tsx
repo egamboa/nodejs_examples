@@ -17,7 +17,6 @@ export default function Search() {
         Search
       </h1>
       <div className="text-white p-6">
-        <h2 className="text-2xl font-bold mb-4">Pokémon Page {pageNumber + 1}</h2>
         {isLoading && <p className="text-sm text-indigo-300 mb-2">Loading...</p>}
         {isError && <p className="text-sm text-red-400 mb-2">Error fetching data.</p>}
         {data && <PokemonList pokemons={data.results} />}
